@@ -58,6 +58,9 @@ public class Digit {
                 countPixels(pixelNumber,digitNine);
                 break;
 
+            default:
+                System.out.println("something wrong");
+
         }
     }
 
@@ -69,6 +72,4 @@ public class Digit {
             updateThisPixel.put(pixelNumber,updateThisPixel.get(pixelNumber)+1);
         }
     }
-
-
 }

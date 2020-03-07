@@ -2,10 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     public static void main(String args[]) throws FileNotFoundException {
@@ -13,11 +10,9 @@ public class Main {
         Scanner scanner = new Scanner(file);
         scanner.nextLine();
         final int totalExample = 42000;
-        String[][] trainingData,testData;
 
-
-        int amountOfAttr = 784;
-        trainingData = new String[totalExample][amountOfAttr];
+        final int amountOfAttr = 784;
+        String[][] trainingData = new String[totalExample][amountOfAttr];
         scanner = new Scanner(file);
         scanner.nextLine();
         int i = 0;
@@ -32,94 +27,57 @@ public class Main {
         }
 
 //        print2D(trainingData);
-        
+
 
         NaiveBayesian_Implementation naiveBayesian_implementation = new NaiveBayesian_Implementation(trainingData);
-//        System.out.println(naiveBayesian_implementation.getMyDigitInfo().digitZero.get(""));
 
-//        file = new File("test.csv");
-//        scanner = new Scanner(file);
-//        scanner.nextLine();
-//
-//        //Create an output file
-//        File writeFileName = new File("output.txt");
-//        try{
-//            if (writeFileName.createNewFile()) {
-//                System.out.println("File created: " + writeFileName.getName());
-//            } else {
-//                System.out.println("File already exists.");
-//            }
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        };
-//
-//        try {
-//            FileWriter fileWriter = new FileWriter(writeFileName);
-//            fileWriter.write("GeneID,Localization" + "\n");
-//            int line = 0;
-//            while(scanner.hasNext()) {
-//                scanner.nextLine();
-//                totalTestExample++;
-//            }
-//
-//            testData = new String[totalTestExample][2];
-//
-//            scanner = new Scanner(file);
-//            scanner.nextLine();
-//            while(scanner.hasNext()){
-//                String[] splitLine = scanner.nextLine().split(",");
-//                //System.out.println(line + ": " + naiveBayesian_implementation.predictLocalization(splitLine));
-//                testData[line][0]  = splitLine[0];
-//                testData[line][1]  = naiveBayesian_implementation.predictLocalization(splitLine);
-//                line++;
-//            }
-//
-//            geneIDTable = naiveBayesian_implementation.findTheFinalLocalization(testData);
-//            Set<String> keys = geneIDTable.keySet();
-//            String[] geneID = new String[keys.size()];
-//            String[] localization = new String[keys.size()];
-//            i = 0;
-//            for(String key : keys){
-//                geneID[i] = key;
-//                localization[i] = geneIDTable.get(key);
-//                i++;
-//            }
-//
+
+
+        int test = 1;
+        double test2 = 40.0;
+        System.out.println(test/test2);
+
+        file = new File("test.csv");
+        scanner = new Scanner(file);
+        scanner.nextLine();
+
+        //Create an output file
+        File writeFileName = new File("submission.csv");
+
+
+        try {
+            FileWriter fileWriter = new FileWriter(writeFileName);
+            fileWriter.write("ImageId,Label\n");
+            int line = 1;
+
+
+            scanner = new Scanner(file);
+            scanner.nextLine();
+            while(scanner.hasNext()){
+                String[] splitLine = scanner.nextLine().split(",");
+//                System.out.println(line + ": " + naiveBayesian_implementation.recognizer(splitLine));
+
+                fileWriter.write(line + "," + naiveBayesian_implementation.recognizer(splitLine)  + "\n");
+
+                line++;
+            }
+
+
+
 //            for(i =0; i < geneID.length;i++){
 //                fileWriter.write(geneID[i] + "," + localization[i] + "\n");
 //            }
-//
-//
-//            fileWriter.close();
-//        }catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
-//    }
 
-//    private static void compareOutputVsKeys(String[] geneID, String[] localization) throws FileNotFoundException {
-//        File file;
-//        Scanner scanner;
-//        int i;
-//        double correct = 0;
-//        file = new File("keys.txt");
-//        scanner = new Scanner(file);
-//        scanner.nextLine();
-//        while(scanner.hasNext()){
-//            String[] splitLine = scanner.nextLine().split(",");
-//            for(i = 0; i < geneID.length;i++){
-//                if(splitLine[0].equals(geneID[i])){
-//                    if(splitLine[1].equals(localization[i])){
-//                        correct++;
-//                    }
-//                }
-//            }
-//        }
-//
-//        double accuracy = correct/geneID.length;
-//        System.out.println("accuracy is: " +Math.round(accuracy * 100)  + "%");
+
+            fileWriter.close();
+        }catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
+
+
+
 
     public static void print2D(String mat[][])
     {
